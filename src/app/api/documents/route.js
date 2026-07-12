@@ -8,7 +8,7 @@ export async function GET(request) {
     const source = searchParams.get('source');
 
     if (source) {
-      // Get specific document info
+      // Get specific document info 
       const chunks = await vectorDb.getAllBySource(source);
       
       return NextResponse.json({
@@ -19,6 +19,7 @@ export async function GET(request) {
     }
 
     // This is a simplified version - in production, you'd maintain a separate index
+    // For now, we can return a message indicating that the source parameter is required to get document details
     return NextResponse.json({
       success: true,
       message: 'Use the source parameter to get document details',
