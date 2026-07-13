@@ -61,6 +61,7 @@ export class GeminiClient {
     this.genAI = new GoogleGenerativeAI(apiKey);
     const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
     try {
+       // Initialize the Gemini model with specific generation parameters
       this.model = this.genAI.getGenerativeModel({
         model: modelName,
         generationConfig: {
@@ -70,6 +71,8 @@ export class GeminiClient {
         },
       });
     } catch (err) {
+      // If the model is not available, log the error and disable the client
+
       console.error(`Failed to initialize Gemini model '${modelName}':`, err?.message || err);
       console.warn('Gemini client will be disabled; falling back to local models only.');
       this.available = false;
