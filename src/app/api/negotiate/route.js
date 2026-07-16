@@ -35,7 +35,7 @@ const ROLE_FOCUS = {
 export async function POST(request) {
     try {
         const { filename, contractText, userRole } = await request.json();
-
+        // Validate input
         if (!contractText) {
             return NextResponse.json({ error: 'Contract text is required' }, { status: 400 });
         }
@@ -52,7 +52,8 @@ export async function POST(request) {
                 role = 'Freelancer'; // Default
             }
         }
-
+        
+        // Log the role for debugging
         console.log(`[Negotiation API] Generating tips for role: ${role}`);
 
         // Get role-specific focus areas
@@ -111,6 +112,7 @@ Return ONLY a JSON object:
 
     } catch (error) {
         console.error('Negotiation API error:', error);
+        // Return a structured error response
         return NextResponse.json({
             error: 'Failed to generate negotiation tips',
             details: error?.message || 'Unknown error'

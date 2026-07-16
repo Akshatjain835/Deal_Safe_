@@ -15,11 +15,14 @@ export async function POST(request) {
         const formData = await request.formData();
         const files = formData.getAll('offers');
 
+        // Validate number of files
         if (!files || files.length < 2) {
+
             return NextResponse.json({ error: 'Please upload at least 2 offer letters to compare' }, { status: 400 });
         }
 
         if (files.length > 4) {
+            // Limit to 4 offers for comparison
             return NextResponse.json({ error: 'Maximum 4 offers can be compared at once' }, { status: 400 });
         }
 
